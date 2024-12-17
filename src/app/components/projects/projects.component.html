@@ -1,1 +1,45 @@
-<p>Projects</p>
+<div class="mat-title-large page-title">Projects</div>
+
+<form [formGroup]="projectForm">
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <div style="display: flex; flex-direction: row; gap: 5px">
+      <button (click)="search()" mat-button type="button">
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
+
+      <button (click)="new()" mat-button type="button">
+        <mat-icon>add</mat-icon>
+        New
+      </button>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSourceWrapper.dataSource">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Name </th>
+      <td mat-cell *matCellDef="let p" style="text-align: center;"> {{ p.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Actions </th>
+      <td mat-cell *matCellDef="let p" style="text-align: center;">
+        <button mat-icon-button matTooltip="Edit" type="button" (click)="edit(p)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataSourceWrapper.displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataSourceWrapper.displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="dataSourceWrapper.length" [pageIndex]="dataSourceWrapper.pageIndex"
+                 [pageSize]="dataSourceWrapper.pageSize" [pageSizeOptions]="dataSourceWrapper.pageSizeOptions"
+                 showFirstLastButtons></mat-paginator>
+</form>
