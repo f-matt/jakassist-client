@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {ProjectDialogComponent} from '../project-dialog/project-dialog.component';
 
 @Component({
   selector: 'app-projects',
@@ -62,7 +63,7 @@ export class ProjectsComponent {
   }
 
   new() {
-    this.messagesService.showMessage("Under construction...");
+    this.dialog.open(ProjectDialogComponent);
   }
 
   edit(project: Project): void {
